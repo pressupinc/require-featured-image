@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 === Require Featured Image ===
 Contributors: pressupinc
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/

@@ -2,9 +2,9 @@
 /*
 Plugin Name: Require Featured Image
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
-Description: Requires posts to have a featured image set before they'll be published
+Description: Like it says on the tin: requires posts to have a featured image set before they'll be published.
 Author: Press Up
-Version: 0.2.1
+Version: 0.2.2
 Author URI: http://pressupinc.com
 */ 
 

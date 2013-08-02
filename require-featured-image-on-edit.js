@@ -18,4 +18,5 @@ jQuery(document).ready(function($) {
 			$('#publish').removeAttr('disabled');
 		}
 	}
+
 });

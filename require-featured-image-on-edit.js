@@ -18,8 +18,5 @@ jQuery(document).ready(function($) {
 			$('#publish').removeAttr('disabled');
 		}
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> svn
 });

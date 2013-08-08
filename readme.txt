@@ -2,9 +2,9 @@
 Contributors: pressupinc
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin
-Requires at least: 2.8
+Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 0.2.2
+Stable tag: 0.3.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -43,6 +43,9 @@ Nope.
 1. The warning that you see when editing a post that doesn't have a featured image set. The "Publish" button is also disabled.
 
 == CHANGELOG ==
+
+= 0.3.0 (2013.08.07) =
+* Improved conditional fall-back PHP test of publishing because it was stopping saves.
 
 = 0.2.2 (2013.08.02) =
 * Fixed some minor documentation errors

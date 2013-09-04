@@ -4,12 +4,11 @@ Plugin Name: Require Featured Image
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Description: Like it says on the tin: requires posts to have a featured image set before they'll be published.
 Author: Press Up
-Version: 0.3.1
+Version: 0.4.0
 Author URI: http://pressupinc.com
 */ 
 
 add_action( 'pre_post_update', 'rfi_dont_publish' );
-
 function rfi_dont_publish( $post_ID ) {
     $post = get_post( $post_ID );
     // Incredible HACKERY because I can't find a hook that does what I want, or where
@@ -22,10 +21,22 @@ function rfi_dont_publish( $post_ID ) {
     }
 }
 
+
 add_action( 'admin_enqueue_scripts', 'rfi_admin_js' );
 function rfi_admin_js( $hook ) {
+    global $post;
+
 	if ( $hook != 'post.php' && $hook != 'post-new.php' )
         return;
-    wp_register_script( 'rfi-admin-js', plugins_url( '/require-featured-image-on-edit.js', __FILE__ ), array( 'jquery' ) );
-    wp_enqueue_script( 'rfi-admin-js' );
+
+    if ( in_array( $post->post_type, rfi_return_post_types() ) ) {
+        wp_register_script( 'rfi-admin-js', plugins_url( '/require-featured-image-on-edit.js', __FILE__ ), array( 'jquery' ) );
+        wp_enqueue_script( 'rfi-admin-js' );
+    }
+}
+
+// ---------------------------------------------- //
+
+function rfi_return_post_types() {
+    return apply_filters( 'rfi_post_types' , array('post') ); 
 }

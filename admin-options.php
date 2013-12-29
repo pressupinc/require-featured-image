@@ -1,7 +1,7 @@
 <?php
 
-add_action( 'admin_menu', 'rif_admin_add_page' );
-function rif_admin_add_page() {
+add_action( 'admin_menu', 'rfi_admin_add_page' );
+function rfi_admin_add_page() {
 	add_options_page( 'Require Featured Image Page', 'Req Featured Image', 'manage_options', 'rfi', 'rfi_options_page' );
 }
 
@@ -64,10 +64,6 @@ function rfi_post_types_input_renderer() {
 }
 
 function rfi_text_validate( $input ) {
-	// print_r($input);
-	// die();
-
 	$validated = trim( $input );
-
 	return $validated;
 }

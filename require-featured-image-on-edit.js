@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
     function detectWarnFeaturedImage() {
 		if ($.find('#postimagediv').length !== 0) {
 			if ($('#postimagediv').find('img').length===0 ) {
-				$('#nofeature-message').addClass("error").html('<p><strong>This post has no featured image.</strong> Please set one. You must set a featured image before publishing your post.</p>');
+				$('#nofeature-message').addClass("error").html('<p><strong>This entry has no featured image.</strong> Please set one. You must set a featured image before publishing.</p>');
 				$('#publish').attr('disabled','disabled');
 			} else {
 				$('#nofeature-message').remove();

@@ -16,7 +16,6 @@ function rfi_options_page() {
 		<input name="Submit" type="submit" value="<?php esc_attr_e( 'Save Changes' ); ?>" class="button button-primary" />
 	</form>
 </div>
- 
 <?php
 }
 
@@ -45,11 +44,8 @@ function rfi_notification_input_renderer() {
 }
 
 function rfi_post_types_input_renderer() {
-	
 	$option = rfi_return_post_types_option();
-
 	$post_types = get_post_types( array( 'public' => true ), 'objects' );
-	// print_r($post_types);
 
 	foreach ( $post_types as $type => $obj ) {
 		if ( ! post_type_supports( $type, 'thumbnail' ) ) {

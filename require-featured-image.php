@@ -26,8 +26,8 @@ function rfi_dont_publish( $post_ID ) {
 
 add_action( 'admin_enqueue_scripts', 'rfi_admin_js' );
 function rfi_admin_js( $hook ) {
-    global $post;
 
+    global $post;
 	if ( $hook != 'post.php' && $hook != 'post-new.php' )
         return;
 

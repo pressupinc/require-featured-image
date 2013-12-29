@@ -18,7 +18,7 @@ function rfi_plugin_activate() {
 
 add_action( 'pre_post_update', 'rfi_dont_publish' );
 function rfi_dont_publish( $post_ID ) {
-    if ( rfi_should_let_id_publish( $post_ID ) ) {
+    if ( !rfi_should_let_id_publish( $post_ID ) ) {
         wp_die( 'You cannot publish without a featured image.' );
     }
 }
@@ -66,7 +66,7 @@ function rfi_should_let_id_publish( $post_ID ) {
     $request_under_status_test = isset($_REQUEST['_status']) && $_REQUEST['_status'] == 'publish';
     $are_trying_to_publish = ( $request_publish_test || $request_under_status_test );
 
-    return ( 
+    return !( 
         in_array( $post->post_type, rfi_return_post_types() )
         && $are_trying_to_publish 
         && !has_post_thumbnail( $post_ID ) 

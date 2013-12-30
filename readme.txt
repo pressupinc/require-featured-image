@@ -60,6 +60,8 @@ Yep, just for different "custom post types." In your left sidebar under Settings
 
 1. The warning that you see when editing a post that doesn't have a featured image set. The "Publish" button is also disabled.
 
+2. The settings page, which lets you specify which post types the plugin should operate on.
+
 == CHANGELOG ==
 
 = 0.5.0 (2013.12.30) =

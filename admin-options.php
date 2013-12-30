@@ -34,7 +34,7 @@ function rfi_admin_init(){
 }
 
 function rfi_section_text() {
-	echo '<p>You can specify the post type for Require Feautured Image to work on. In versions prior to 0.5.0, it was only possible to make it work on Posts; now you get to choose.</p>
+	echo '<p>You can specify the post type for Require Feautured Image to work on. By default it works on Posts only.</p>
 	<p>If you\'re not seeing a post type here that you think should be, it probably does not have support for featured images. Only post types that support featured images will appear on this list.</p>';
 }
 

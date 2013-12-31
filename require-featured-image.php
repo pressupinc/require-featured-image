@@ -10,22 +10,22 @@ Author URI: http://pressupinc.com
 
 require_once('admin-options.php');
 
-register_activation_hook( __FILE__, 'rfi_plugin_activate' );
-function rfi_plugin_activate() {
+register_activation_hook( __FILE__, 'rfi_set_default_on_activation' );
+function rfi_set_default_on_activation() {
     add_option( 'rfi_post_types', array('post') );
 }
 
 
-add_action( 'pre_post_update', 'rfi_dont_publish' );
-function rfi_dont_publish( $post_ID ) {
+add_action( 'pre_post_update', 'rfi_guard_against_publish' );
+function rfi_guard_against_publish( $post_ID ) {
     if ( !rfi_should_let_id_publish( $post_ID ) ) {
         wp_die( 'You cannot publish without a featured image.' );
     }
 }
 
 
-add_action( 'admin_enqueue_scripts', 'rfi_admin_js' );
-function rfi_admin_js( $hook ) {
+add_action( 'admin_enqueue_scripts', 'rfi_enqueue_edit_screen_js' );
+function rfi_enqueue_edit_screen_js( $hook ) {
 
     global $post;
 	if ( $hook != 'post.php' && $hook != 'post-new.php' )

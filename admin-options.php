@@ -26,14 +26,14 @@ function rfi_admin_init(){
 	register_setting( 'rfi_options', 'rfi_post_types' );
 	
 	// Create section of Page
-	add_settings_section( 'rfi_main', 'Post Types', 'rfi_section_text', 'rfi' );
+	add_settings_section( 'rfi_main', 'Post Types', 'rfi_main_section_text_output', 'rfi' );
 	
 	// Add fields to that section
 	// add_settings_field( 'rfi_notification_text', 'Notification Text: ', 'rfi_notification_input_renderer', 'rfi', 'rfi_main' );
 	add_settings_field( 'rfi_post_types', 'Post Types that require featured images ', 'rfi_post_types_input_renderer', 'rfi', 'rfi_main' );
 }
 
-function rfi_section_text() {
+function rfi_main_section_text_output() {
 	echo '<p>You can specify the post type for Require Feautured Image to work on. By default it works on Posts only.</p>
 	<p>If you\'re not seeing a post type here that you think should be, it probably does not have support for featured images. Only post types that support featured images will appear on this list.</p>';
 }

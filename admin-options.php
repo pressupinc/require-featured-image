@@ -8,12 +8,12 @@ function rfi_admin_add_page() {
 function rfi_options_page() {
 ?>
 <div class="wrap">
-	<h2>Require Featured Image</h2>
+	<h2><?php _e( 'Require Featured Image', 'require-featured-image' ) ?></h2>
 	<form action="options.php" method="post">
 		<?php settings_fields( 'rfi_options' ); ?>
 		<?php do_settings_sections( 'rfi' ); ?>
 		 
-		<input name="Submit" type="submit" value="<?php esc_attr_e( 'Save Changes' ); ?>" class="button button-primary" />
+		<input name="Submit" type="submit" value="<?php esc_attr_e( 'Save Changes', 'require-featured-image' ); ?>" class="button button-primary" />
 	</form>
 </div>
 <?php
@@ -22,20 +22,18 @@ function rfi_options_page() {
 add_action( 'admin_init', 'rfi_admin_init' );
 function rfi_admin_init(){
 	// Create Settings
-	// register_setting( 'rfi_options', 'rfi_notification_text', 'rfi_text_validate' );
 	register_setting( 'rfi_options', 'rfi_post_types' );
 	
 	// Create section of Page
-	add_settings_section( 'rfi_main', 'Post Types', 'rfi_main_section_text_output', 'rfi' );
+	add_settings_section( 'rfi_main', __( 'Post Types', 'require-featured-image' ), 'rfi_main_section_text_output', 'rfi' );
 	
 	// Add fields to that section
 	// add_settings_field( 'rfi_notification_text', 'Notification Text: ', 'rfi_notification_input_renderer', 'rfi', 'rfi_main' );
-	add_settings_field( 'rfi_post_types', 'Post Types that require featured images ', 'rfi_post_types_input_renderer', 'rfi', 'rfi_main' );
+	add_settings_field( 'rfi_post_types', __('Post Types that require featured images ', 'require-featured-image' ), 'rfi_post_types_input_renderer', 'rfi', 'rfi_main' );
 }
 
 function rfi_main_section_text_output() {
-	echo '<p>You can specify the post type for Require Feautured Image to work on. By default it works on Posts only.</p>
-	<p>If you\'re not seeing a post type here that you think should be, it probably does not have support for featured images. Only post types that support featured images will appear on this list.</p>';
+	__( '<p>You can specify the post type for Require Feautured Image to work on. By default it works on Posts only.</p><p>If you\'re not seeing a post type here that you think should be, it probably does not have support for featured images. Only post types that support featured images will appear on this list.</p>', 'require-featured-image' );
 }
 
 function rfi_notification_input_renderer() {

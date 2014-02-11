@@ -16,19 +16,18 @@ function rfi_set_default_on_activation() {
 }
 
 
-add_action( 'pre_post_update', 'rfi_guard_against_publish' );
-function rfi_guard_against_publish( $post_ID ) {
-    if ( !rfi_should_let_id_publish( $post_ID ) ) {
-        wp_die( 'You cannot publish without a featured image.' );
+add_action( 'transition_post_status', 'rfi_dont_publish_post', 10, 3 );
+function rfi_dont_publish_post( $new_status, $old_status, $post ) {
+    if ( $new_status === 'publish' && !rfi_should_let_id_publish( $post ) ) {
+        wp_die( __('You cannot publish without a featured image.', 'require-featured-image') );
     }
 }
-
 
 add_action( 'admin_enqueue_scripts', 'rfi_enqueue_edit_screen_js' );
 function rfi_enqueue_edit_screen_js( $hook ) {
 
     global $post;
-	if ( $hook != 'post.php' && $hook != 'post-new.php' )
+	if ( $hook !== 'post.php' && $hook !== 'post-new.php' )
         return;
 
     if ( in_array( $post->post_type, rfi_return_post_types() ) ) {
@@ -58,17 +57,6 @@ function rfi_return_post_types_option() {
     return $option;
 }
 
-function rfi_should_let_id_publish( $post_ID ) {
-    $post = get_post( $post_ID );
-    
-    // Incredible HACKERY because I can't find a hook that does what I want, or where
-    $request_publish_test = isset($_REQUEST['publish']);
-    $request_under_status_test = isset($_REQUEST['_status']) && $_REQUEST['_status'] == 'publish';
-    $are_trying_to_publish = ( $request_publish_test || $request_under_status_test );
-
-    return !( 
-        in_array( $post->post_type, rfi_return_post_types() )
-        && $are_trying_to_publish 
-        && !has_post_thumbnail( $post_ID ) 
-    );
+function rfi_should_let_id_publish( $post ) {
+    return !( in_array( $post->post_type, rfi_return_post_types() ) && !has_post_thumbnail( $post->ID ) );
 }

@@ -6,6 +6,7 @@ Description: Like it says on the tin: requires posts to have a featured image se
 Author: Press Up
 Version: 0.6.0
 Author URI: http://pressupinc.com
+Text Domain: require-featured-image
 */ 
 
 require_once('admin-options.php');

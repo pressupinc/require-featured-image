@@ -3,8 +3,8 @@ Contributors: pressupinc, davidbhayes
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
-Tested up to: 3.8.0
-Stable tag: 0.5.0
+Tested up to: 3.8.1
+Stable tag: 0.6.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -63,6 +63,13 @@ Yep, just for different "custom post types." In your left sidebar under Settings
 2. The settings page, which lets you specify which post types the plugin should operate on.
 
 == CHANGELOG ==
+
+= 0.6.1 (2013.03.02) =
+* Updating readme so the live version will change, and removing a .mo file I didn't mean to commit.
+
+= 0.6.0 (2013.03.02) =
+* Big changes: Added support for languages localization. I think. I'm new at this.
+* Changed it under the hood to use a proper hook rather than a terrible hack system I'd devised before.
 
 = 0.5.0 (2013.12.31) =
 * Big changes: now supports all your custom post types out of the box. This can be accessed through the options page (recommended and preferred) or through a filter called 'rfi_post_types'.

@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
     function detectWarnFeaturedImage() {
 		if ($.find('#postimagediv').length !== 0) {
 			if ($('#postimagediv').find('img').length===0 ) {
-				$('#nofeature-message').addClass("error").html('<p><strong>'+objectL10n.strongText+'</strong> '+objectL10n.completionText+'</p>');
+				$('#nofeature-message').addClass("error").html('<p>'+objectL10n.jsWarningHtml+'</p>');
 				$('#publish').attr('disabled','disabled');
 			} else {
 				$('#nofeature-message').remove();

@@ -16,6 +16,11 @@ function rfi_set_default_on_activation() {
     add_option( 'rfi_post_types', array('post') );
 }
 
+function rfi_textdomain_init() {
+  load_plugin_textdomain( 'require-featured-image', false, dirname( plugin_basename( __FILE__ ) ).'/lang' ); 
+}
+add_action( 'plugins_loaded', 'rfi_textdomain_init' );
+
 
 add_action( 'transition_post_status', 'rfi_dont_publish_post', 10, 3 );
 function rfi_dont_publish_post( $new_status, $old_status, $post ) {
@@ -38,8 +43,7 @@ function rfi_enqueue_edit_screen_js( $hook ) {
             'rfi-admin-js',
             'objectL10n',
             array(
-                'strongText' => __( 'This entry has no featured image.', 'require-featured-image' ),
-                'completionText' => __( 'Please set one. You need to set a featured image before publishing.', 'require-featured-image' ),
+                'jsWarningHtml' => __( '<strong>This entry has no featured image.</strong> Please set one. You need to set a featured image before publishing.', 'require-featured-image' ),
             )
         );
     }

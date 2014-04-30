@@ -3,12 +3,12 @@ Contributors: pressupinc, davidbhayes
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
-Tested up to: 3.8.1
-Stable tag: 0.6.2
+Tested up to: 3.9.0
+Stable tag: 0.6.3
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
-Requires post types you specify to have a featured image set before they can be published.
+Requires content you specify to have a featured image set before they can be published.
 
 == Description ==
 
@@ -56,6 +56,10 @@ Because you want it to be *required* that your posts have featured images before
 
 Yep, just for different "custom post types." In your left sidebar under Settings, you should see "Req Featured Image". There are options. Or an option, more accurately. Happy publishing!
 
+= Support for other languages? =
+
+The plugin does support other languages, and we're happy to accept contributions of translation packs. We have a Spanish translation kindly provided by Andrew Curtis of [WebHostingHub](http://www.webhostinghub.com/).
+
 == Screenshots ==
 
 1. The warning that you see when editing a post that doesn't have a featured image set. The "Publish" button is also disabled.
@@ -64,8 +68,11 @@ Yep, just for different "custom post types." In your left sidebar under Settings
 
 == CHANGELOG ==
 
+= 0.6.3 (2013.04.30) =
+* Readme changes (3.9 support rev, some copy changes).
+
 = 0.6.2 (2013.04.05) =
-* Adding Spanish tranlation from Andrew Kurtis of WebHostingHub. Thanks Andrew!
+* Adding Spanish tranlation from Andrew Kurtis of [WebHostingHub](http://www.webhostinghub.com/). Thanks Andrew!
 
 = 0.6.1 (2013.03.02) =
 * Updating readme so the live version will change, and removing a .mo file I didn't mean to commit.

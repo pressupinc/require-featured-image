@@ -3,8 +3,8 @@ Contributors: pressupinc, davidbhayes
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
-Tested up to: 3.9.0
-Stable tag: 0.6.3
+Tested up to: 4.0.0
+Stable tag: 0.6.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -58,7 +58,7 @@ Yep, just for different "custom post types." In your left sidebar under Settings
 
 = Support for other languages? =
 
-The plugin does support other languages, and we're happy to accept contributions of translation packs. We have a Spanish translation kindly provided by Andrew Curtis of [WebHostingHub](http://www.webhostinghub.com/).
+The plugin does support other languages, and we're happy to accept contributions of translation packs. We have a Spanish translation kindly provided by Andrew Curtis of [WebHostingHub](http://www.webhostinghub.com/). Rdwan Hlak offered the Arabic translation.
 
 == Screenshots ==
 
@@ -67,6 +67,10 @@ The plugin does support other languages, and we're happy to accept contributions
 2. The settings page, which lets you specify which post types the plugin should operate on.
 
 == CHANGELOG ==
+
+= 0.6.3 (2014.09.18) =
+* Adding Arabic translation.
+* Readme changes (4.0 support).
 
 = 0.6.3 (2013.04.30) =
 * Readme changes (3.9 support rev, some copy changes).

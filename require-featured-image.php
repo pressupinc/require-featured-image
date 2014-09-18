@@ -24,7 +24,7 @@ add_action( 'plugins_loaded', 'rfi_textdomain_init' );
 
 add_action( 'transition_post_status', 'rfi_dont_publish_post', 10, 3 );
 function rfi_dont_publish_post( $new_status, $old_status, $post ) {
-    if ( $new_status === 'publish' && !rfi_should_let_id_publish( $post ) ) {
+    if ( $new_status === 'publish' && !rfi_should_let_post_publish( $post ) ) {
         wp_die( __( 'You cannot publish without a featured image.', 'require-featured-image' ) );
     }
 }
@@ -70,6 +70,6 @@ function rfi_return_post_types_option() {
     return $option;
 }
 
-function rfi_should_let_id_publish( $post ) {
+function rfi_should_let_post_publish( $post ) {
     return !( in_array( $post->post_type, rfi_return_post_types() ) && !has_post_thumbnail( $post->ID ) );
 }

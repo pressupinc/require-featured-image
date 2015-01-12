@@ -16,11 +16,10 @@ function rfi_set_default_on_activation() {
     add_option( 'rfi_post_types', array('post') );
 }
 
+add_action( 'plugins_loaded', 'rfi_textdomain_init' );
 function rfi_textdomain_init() {
   load_plugin_textdomain( 'require-featured-image', false, dirname( plugin_basename( __FILE__ ) ).'/lang' ); 
 }
-add_action( 'plugins_loaded', 'rfi_textdomain_init' );
-
 
 add_action( 'transition_post_status', 'rfi_dont_publish_post', 10, 3 );
 function rfi_dont_publish_post( $new_status, $old_status, $post ) {

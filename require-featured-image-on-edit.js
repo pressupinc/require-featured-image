@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
 	}
 
 	function publishButtonIsPublishText() {
-		return $('#publish').attr('value') === 'Publish';
+		return $('#publish').attr('name') === 'publish';
 	}
 
 	function disablePublishAndWarn() {

@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
 		return $.find('#postimagediv').length !== 0;
 	}
 
-	function hasFeaturedImage() {
+	function lacksFeaturedImage() {
 		return $('#postimagediv').find('img').length === 0;
 	}
 
@@ -32,7 +32,7 @@ jQuery(document).ready(function($) {
 
     function detectWarnFeaturedImage() {
 		if (postTypeSupportsFeaturedImage()) {
-			if (hasFeaturedImage() && publishButtonIsPublishText()) {
+			if (lacksFeaturedImage() && publishButtonIsPublishText()) {
 				disablePublishAndWarn();
 			} else {
 				clearWarningAndEnablePublish();

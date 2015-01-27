@@ -4,7 +4,7 @@ Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
 Tested up to: 4.1.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -67,6 +67,9 @@ The plugin does support other languages, and we're happy to accept contributions
 2. The settings page, which lets you specify which post types the plugin should operate on.
 
 == CHANGELOG ==
+
+= 1.0.3 (2015.01.27) =
+* Fixed a mis-named function in the Javascript.
 
 = 1.0.2 (2015.01.24) =
 * Made as mistake during VCS games, bumping again was easiest.

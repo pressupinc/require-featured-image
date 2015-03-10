@@ -3,8 +3,8 @@ Contributors: pressupinc, davidbhayes
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
-Tested up to: 4.1.0
-Stable tag: 1.0.3
+Tested up to: 4.1.1
+Stable tag: 1.0.4
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -68,6 +68,9 @@ The plugin does support other languages, and we're happy to accept contributions
 
 == CHANGELOG ==
 
+= 1.0.4 (2015.03.10) =
+* Cleaned up settings page a fair bit.
+
 = 1.0.3 (2015.01.27) =
 * Fixed a mis-named function in the Javascript.
 
@@ -94,7 +97,7 @@ The plugin does support other languages, and we're happy to accept contributions
 * Readme changes (3.9 support rev, some copy changes).
 
 = 0.6.2 (2013.04.05) =
-* Adding Spanish tranlation from Andrew Kurtis of [WebHostingHub](http://www.webhostinghub.com/). Thanks Andrew!
+* Adding Spanish translation from Andrew Kurtis of [WebHostingHub](http://www.webhostinghub.com/). Thanks Andrew!
 
 = 0.6.1 (2013.03.02) =
 * Updating readme so the live version will change, and removing a .mo file I didn't mean to commit.
@@ -106,7 +109,7 @@ The plugin does support other languages, and we're happy to accept contributions
 = 0.5.0 (2013.12.31) =
 * Big changes: now supports all your custom post types out of the box. This can be accessed through the options page (recommended and preferred) or through a filter called 'rfi_post_types'.
 * Created an options page to make it easier to update your custom post types and set them within the admin.
-* Some small improvements to internal code structure to increase readability and comprehensabilty. This plugin may finally be big enough to benefit from some object-based design, but not for 0.5.0.
+* Some small improvements to internal code structure to increase readability and comprehensibility. This plugin may finally be big enough to benefit from some object-based design, but not for 0.5.0.
 
 = 0.3.0 (2013.08.07) =
 * Improved conditional fall-back PHP test of publishing because it was stopping saves.

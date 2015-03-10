@@ -1,5 +1,4 @@
 <?php
-// what I'd modified
 add_action( 'admin_menu', 'rfi_admin_add_page' );
 function rfi_admin_add_page() {
 	add_options_page( 'Require Featured Image Page', 'Req Featured Image', 'manage_options', 'rfi', 'rfi_options_page' );
@@ -38,14 +37,21 @@ function rfi_main_section_text_output() {
 	_e( '<p>You can specify the post type for Require Featured Image to work on. By default it works on Posts only.</p><p>If you\'re not seeing a post type here that you think should be, it probably does not have support for featured images. Only post types that support featured images will appear on this list.</p>', 'require-featured-image' );
 }
 
+function rfi_return_post_types_which_support_featured_images() {
+	$post_types = get_post_types( array( 'public' => true ), 'objects' );
+	foreach ( $post_types as $type => $obj ) {
+		if ( post_type_supports( $type, 'thumbnail' ) ) {
+			$return[$type] = $obj;
+		}
+	}
+	return $return;
+}
+
 function rfi_post_types_input_renderer() {
 	$option = rfi_return_post_types_option();
-	$post_types = get_post_types( array( 'public' => true ), 'objects' );
+	$post_types = rfi_return_post_types_which_support_featured_images();
 
 	foreach ( $post_types as $type => $obj ) {
-		if ( ! post_type_supports( $type, 'thumbnail' ) ) {
-			continue;
-		}
 		if ( in_array( $type, $option ) ) {
 			echo '<input type="checkbox" name="rfi_post_types[]" value="'.$type.'" checked="checked">'.$obj->label.'<br>';
 		} else {

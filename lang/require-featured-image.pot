@@ -38,7 +38,7 @@ msgstr ""
 
 #: /Users/david/Dropbox/WebDev/wp/wpdev/content/plugins/require-featured-image/admin-options.php:36
 msgid ""
-"<p>You can specify the post type for Require Feautured Image to work on. By "
+"<p>You can specify the post type for Require Featured Image to work on. By "
 "default it works on Posts only.</p><p>If you're not seeing a post type here "
 "that you think should be, it probably does not have support for featured "
 "images. Only post types that support featured images will appear on this "

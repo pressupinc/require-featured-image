@@ -3,8 +3,8 @@ Contributors: pressupinc, davidbhayes
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
-Tested up to: 4.1.1
-Stable tag: 1.0.6
+Tested up to: 4.1.2
+Stable tag: 1.0.7
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -67,6 +67,9 @@ The plugin does support other languages, and we're happy to accept contributions
 2. The settings page, which lets you specify which post types the plugin should operate on.
 
 == CHANGELOG ==
+
+= 1.0.7 (2015.04.21) =
+* Adding translation to Serbian by from Andrijana Nikolic of [WebHostingGeeks](http://www.webhostinggeeks.com/). Thanks Andrijana!
 
 = 1.0.6 (2015.03.24) =
 * Adding translation to Norwegian by Alf Otto Fagermo.

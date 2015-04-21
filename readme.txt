@@ -68,6 +68,9 @@ The plugin does support other languages, and we're happy to accept contributions
 
 == CHANGELOG ==
 
+= 1.0.8 (2015.04.21) =
+* VCS games...
+
 = 1.0.7 (2015.04.21) =
 * Adding translation to Serbian by from Andrijana Nikolic of [WebHostingGeeks](http://www.webhostinggeeks.com/). Thanks Andrijana!
 

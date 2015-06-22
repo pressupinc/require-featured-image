@@ -4,7 +4,7 @@ Plugin Name: Require Featured Image
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Description: Like it says on the tin: requires posts to have a featured image set before they'll be published.
 Author: Press Up
-Version: 1.1.0
+Version: 1.1.1
 Author URI: http://pressupinc.com
 Text Domain: require-featured-image
 */ 
@@ -60,8 +60,8 @@ function rfi_enqueue_edit_screen_js( $hook ) {
 function rfi_return_post_types() {
     $option = get_option( 'rfi_post_types', 'default' );
     if ( $option === 'default' ) {
-        add_option( 'rfi_post_types', array('post') );
         $option = array( 'post' );
+        add_option( 'rfi_post_types', $option );
     } 
     elseif ( $option === '' ) {
         // For people who want the plugin on, but doing nothing
@@ -83,12 +83,12 @@ function rfi_enforcement_start_time() {
 }
 
 function rfi_should_let_post_publish( $post ) {
-    $has_featured_image = !has_post_thumbnail( $post->ID );
-    $is_watched_post_type = !in_array( $post->post_type, rfi_return_post_types() );
+    $has_featured_image = has_post_thumbnail( $post->ID );
+    $is_watched_post_type = in_array( $post->post_type, rfi_return_post_types() );
     $is_after_enforcement_time = strtotime( $post->post_date ) > rfi_enforcement_start_time();
     
-    if ($is_after_enforcement_time) {
-        return $is_watched_post_type && $has_featured_image;
+    if ( $is_after_enforcement_time && $is_watched_post_type ) {
+        return $has_featured_image;
     }
     return true;
 }

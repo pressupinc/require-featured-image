@@ -4,7 +4,7 @@ Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
 Tested up to: 4.2.2
-Stable tag: 1.0.10
+Stable tag: 1.1.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -67,6 +67,9 @@ The plugin does support other languages, and we're happy to accept contributions
 2. The settings page, which lets you specify which post types the plugin should operate on.
 
 == CHANGELOG ==
+
+= 1.1.0 (2015.06.21) =
+* Version bump because we finally resolved the issue people started complaining about in 1.0, where you were able to publish with an image and then go remove the image. The change was made in 1.0 to allow for people with old content without featured images to edit posts easily, which was an issue in pre-1.0. The solution, turned out to be to store an option on plugin activation, and then only start enforcing from that time forward. People with the plugin already activated will be auto-set to two weeks before when they upgrade.
 
 = 1.0.10 (2015.05.24) =
 * Adding Portuguese (Portugal) translation.

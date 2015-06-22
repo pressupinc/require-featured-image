@@ -48,7 +48,7 @@ function rfi_return_post_types_which_support_featured_images() {
 }
 
 function rfi_post_types_input_renderer() {
-	$option = rfi_return_post_types_option();
+	$option = rfi_return_post_types();
 	$post_types = rfi_return_post_types_which_support_featured_images();
 
 	foreach ( $post_types as $type => $obj ) {

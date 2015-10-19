@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
 
 	function createMessageAreaIfNeeded() {
 		if ($('body').find("#nofeature-message").length === 0) {
-			$('h1, h2').after('<div id="nofeature-message"></div>');
+			$('#post').before('<div id="nofeature-message"></div>');
 	    }
 	}
 

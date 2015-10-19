@@ -68,7 +68,7 @@ The plugin does support other languages, and we're happy to accept contributions
 
 == CHANGELOG ==
 
-= 1.1.2 (2015.10.01) =
+= 1.1.3 (2015.10.19) =
 * Improving support for WP4.3 by getting right of h1/h2 targetting issue in jQuery. Thanks [Jamie](https://github.com/hubdotcom).
 * Added Danish translation. Thanks [Jess](https://github.com/JessNielsen)!
 

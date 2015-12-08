@@ -58,7 +58,9 @@ Yep, just for different "custom post types." In your left sidebar under Settings
 
 = Support for other languages? =
 
-The plugin does support other languages, and we're happy to accept contributions of translation packs.
+Yes. We're currently (end 2015/early 2016) hoping that these can start being done on [traslate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/require-featured-image), so if you'd like to contribute one and are familiar with the process, go ahead and do it there.
+
+As the dust is still settling on that process, we will continue supporting other languages via contributions of translations which will be rolled into the next point release of the plugin, as we've done historically.
 
 == Screenshots ==
 

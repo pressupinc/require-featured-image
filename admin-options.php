@@ -62,10 +62,10 @@ function rfi_return_post_types_which_support_featured_images() {
 
 function rfi_return_min_dimensions(){
 	$minimum_size = get_option('rfi_minimum_size');
-	if($minimum_size["width"] == 0){
+	if (isset($minimum_size["width"]) && $minimum_size["width"] == 0) {
 		$minimum_size["width"] = 0;
 	}
-	if($minimum_size["height"] == 0){
+	if (isset($minimum_size["height"]) && $minimum_size["height"] == 0) {
 		$minimum_size["height"] = 0;
 	}
 	return $minimum_size;

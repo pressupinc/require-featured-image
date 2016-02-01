@@ -37,7 +37,7 @@ jQuery(document).ready(function($) {
 			$('#publish').attr('disabled','disabled');
 	}
 
-	function featuredImageTooSmall(){
+	function checkImageSizeThenWarnOrEnable(){
 		$img = $('#postimagediv').find('img');
 		var regex = /-\d+[Xx]\d+\./g;
 		var input = $img[0].src;
@@ -47,8 +47,7 @@ jQuery(document).ready(function($) {
 		featuredImage.src = pathToImage;
 
 		featuredImage.onload = function() {
-		    if ((featuredImage.width < objectL10n.width) || (featuredImage.height < objectL10n.height)
-					&& publishButtonIsPublishText() ){
+		    if ((featuredImage.width < objectL10n.width) || (featuredImage.height < objectL10n.height) && publishButtonIsPublishText() ){
 		    	return disableTooSmallAndWarn();
 		    }
 		    else{
@@ -62,7 +61,7 @@ jQuery(document).ready(function($) {
 			if (lacksFeaturedImage() && publishButtonIsPublishText()) {
 				disablePublishAndWarn();
 			} else {
-				featuredImageTooSmall();
+				checkImageSizeThenWarnOrEnable();
 			}
 		}
 	}

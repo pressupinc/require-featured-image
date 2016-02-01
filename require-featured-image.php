@@ -49,10 +49,10 @@ function rfi_enqueue_edit_screen_js( $hook ) {
 
         wp_localize_script(
             'rfi-admin-js',
-            'objectL10n',
+            'passedFromServer',
             array(
                 'jsWarningHtml' => __( '<strong>This entry has no featured image.</strong> Please set one. You need to set a featured image before publishing.', 'require-featured-image' ),
-                'jsSmallHtml' => __( '<strong>This entry has a featured image that is too small.</strong> Please use a featured image that is at least '.$minimum_size["width"].'x'.$minimum_size["height"].' pixels.', 'require-featured-image' ),
+                'jsSmallHtml' => sprintf( __( '<strong>This entry has a featured image that is too small.</strong> Please use an image that is at least %s x %s pixels.', 'require-featured-image' ), $minimum_size['width'], $minimum_size['height'] ),
                 'width' => $minimum_size['width'],
                 'height' => $minimum_size['height'],
             )

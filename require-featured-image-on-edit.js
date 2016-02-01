@@ -15,7 +15,7 @@ jQuery(document).ready(function($) {
 	function disablePublishAndWarn() {
 		createMessageAreaIfNeeded();
 		$('#nofeature-message').addClass("error")
-			.html('<p>'+objectL10n.jsWarningHtml+'</p>');
+			.html('<p>'+passedFromServer.jsWarningHtml+'</p>');
 		$('#publish').attr('disabled','disabled');
 	}
 
@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
 	function disableTooSmallAndWarn() {
 			createMessageAreaIfNeeded();
 			$('#nofeature-message').addClass("error")
-				.html('<p>'+objectL10n.jsSmallHtml+'</p>');
+				.html('<p>'+passedFromServer.jsSmallHtml+'</p>');
 			$('#publish').attr('disabled','disabled');
 	}
 
@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
 		featuredImage.src = pathToImage;
 
 		featuredImage.onload = function() {
-		    if ((featuredImage.width < objectL10n.width) || (featuredImage.height < objectL10n.height) && publishButtonIsPublishText() ){
+		    if ((featuredImage.width < passedFromServer.width) || (featuredImage.height < passedFromServer.height) && publishButtonIsPublishText() ){
 		    	return disableTooSmallAndWarn();
 		    }
 		    else{

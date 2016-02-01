@@ -30,15 +30,42 @@ jQuery(document).ready(function($) {
 	    }
 	}
 
+	function disableTooSmallAndWarn() {
+			createMessageAreaIfNeeded();
+			$('#nofeature-message').addClass("error")
+				.html('<p>'+objectL10n.jsSmallHtml+'</p>');
+			$('#publish').attr('disabled','disabled');
+	}
+
+	function checkImageSizeThenWarnOrEnable(){
+		$img = $('#postimagediv').find('img');
+		var regex = /-\d+[Xx]\d+\./g;
+		var input = $img[0].src;
+		var pathToImage = input.replace(regex, ".");
+
+		var featuredImage = new Image();
+		featuredImage.src = pathToImage;
+
+		featuredImage.onload = function() {
+		    if ((featuredImage.width < objectL10n.width) || (featuredImage.height < objectL10n.height) && publishButtonIsPublishText() ){
+		    	return disableTooSmallAndWarn();
+		    }
+		    else{
+		    	return clearWarningAndEnablePublish();
+		    }
+		};
+	}
+
     function detectWarnFeaturedImage() {
 		if (postTypeSupportsFeaturedImage()) {
 			if (lacksFeaturedImage() && publishButtonIsPublishText()) {
 				disablePublishAndWarn();
 			} else {
-				clearWarningAndEnablePublish();
+				checkImageSizeThenWarnOrEnable();
 			}
 		}
 	}
+
 
 	detectWarnFeaturedImage();
 	setInterval(detectWarnFeaturedImage, 3000);

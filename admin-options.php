@@ -37,9 +37,9 @@ function rfi_admin_init(){
 
 	// Minimum Image requirements
 	$size_section = 'rfi_size';
-	add_settings_section($size_section, __('Image Size', 'required-featured-image'), 'rfi_size_text_output', $page);
+	add_settings_section($size_section, __('Image Size', 'require-featured-image'), 'rfi_size_text_output', $page);
 
-	add_settings_field($minimum_size_option, __('Minimum width and height of the featured images', 'required-featured-image'), 'rfi_size_option_renderer', $page, $size_section);
+	add_settings_field($minimum_size_option, __('Minimum width and height of the featured images', 'require-featured-image'), 'rfi_size_option_renderer', $page, $size_section);
 }
 
 function rfi_main_section_text_output() {

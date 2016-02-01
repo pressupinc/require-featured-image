@@ -37,21 +37,21 @@ jQuery(document).ready(function($) {
 			$('#publish').attr('disabled','disabled');
 	}
 
-	function checkSize(){
+	function featuredImageTooSmall(){
 		$img = $('#postimagediv').find('img');
 		var regex = /-\d+[Xx]\d+\./g;
-		input = $img[0].src;
+		var input = $img[0].src;
 		var pathToImage = input.replace(regex, ".");
 
-		var tempImage1 = new Image();
-		tempImage1.src = pathToImage;
+		var featuredImage = new Image();
+		featuredImage.src = pathToImage;
 
-		tempImage1.onload = function() {
-		    if ((tempImage1.width < objectL10n.width) && (tempImage1.height < objectL10n.height) ){
-		    	disableTooSmallAndWarn();
+		featuredImage.onload = function() {
+		    if ((featuredImage.width < objectL10n.width) && (featuredImage.height < objectL10n.height) ){
+		    	return true;
 		    }
 		    else{
-		    	clearWarningAndEnablePublish();
+		    	return false;
 		    }
 		};
 	}
@@ -60,8 +60,11 @@ jQuery(document).ready(function($) {
 		if (postTypeSupportsFeaturedImage()) {
 			if (lacksFeaturedImage() && publishButtonIsPublishText()) {
 				disablePublishAndWarn();
-			} else {
-				checkSize();
+			} else if (featuredImageTooSmall()){
+				disableTooSmallAndWarn();
+			}
+			else{
+				clearWarningAndEnablePublish();
 			}
 		}
 	}

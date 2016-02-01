@@ -3,8 +3,8 @@ Contributors: pressupinc, davidbhayes
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
-Tested up to: 4.4
-Stable tag: 1.1.4
+Tested up to: 4.4.1
+Stable tag: 1.2.0
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -70,8 +70,8 @@ As the dust is still settling on that process, we will continue supporting other
 
 == CHANGELOG ==
 
-= 1.1.5 (2016.02.01) =
-* Adding a size check option.
+= 1.2.0 (2016.02.01) =
+* Adding the ability to declare, check for, and enforce a minimum featured image size. Big props to [@cjk508](https://github.com/cjk508) for making that happen.
 
 = 1.1.4 (2015.12.7) =
 * Adding Finnish translation. This commit might/should also unlock language packs on .org, so it could be the last one!

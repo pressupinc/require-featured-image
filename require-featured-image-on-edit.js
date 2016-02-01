@@ -47,11 +47,12 @@ jQuery(document).ready(function($) {
 		featuredImage.src = pathToImage;
 
 		featuredImage.onload = function() {
-		    if ((featuredImage.width < objectL10n.width) && (featuredImage.height < objectL10n.height) ){
-		    	return true;
+		    if ((featuredImage.width < objectL10n.width) || (featuredImage.height < objectL10n.height)
+					&& publishButtonIsPublishText() ){
+		    	return disableTooSmallAndWarn();
 		    }
 		    else{
-		    	return false;
+		    	return clearWarningAndEnablePublish();
 		    }
 		};
 	}
@@ -60,11 +61,8 @@ jQuery(document).ready(function($) {
 		if (postTypeSupportsFeaturedImage()) {
 			if (lacksFeaturedImage() && publishButtonIsPublishText()) {
 				disablePublishAndWarn();
-			} else if (featuredImageTooSmall()){
-				disableTooSmallAndWarn();
-			}
-			else{
-				clearWarningAndEnablePublish();
+			} else {
+				featuredImageTooSmall();
 			}
 		}
 	}

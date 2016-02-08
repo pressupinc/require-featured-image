@@ -47,10 +47,10 @@ jQuery(document).ready(function($) {
 		featuredImage.src = pathToImage;
 
 		featuredImage.onload = function() {
-		    if ((featuredImage.width < passedFromServer.width) || (featuredImage.height < passedFromServer.height) && publishButtonIsPublishText() ){
+			var imageTooSmall = (featuredImage.width < passedFromServer.width) || (featuredImage.height < passedFromServer.height);
+		    if (imageTooSmall && publishButtonIsPublishText() ){
 		    	return disableTooSmallAndWarn();
-		    }
-		    else{
+		    } else {
 		    	return clearWarningAndEnablePublish();
 		    }
 		};

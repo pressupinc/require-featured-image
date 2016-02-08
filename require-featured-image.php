@@ -13,10 +13,8 @@ require_once('admin-options.php');
 
 add_action( 'transition_post_status', 'rfi_guard', 10, 3 );
 function rfi_guard( $new_status, $old_status, $post ) {
-    if ( $new_status === 'publish'
-        && !rfi_should_let_post_publish( $post ) ) {
-        $warning_message = rfi_check_size_is_set();
-        wp_die( __( $warning_message, 'require-featured-image' ) );
+    if ( $new_status === 'publish' && !rfi_should_let_post_publish( $post ) ) {
+        wp_die( rfi_get_warning_message() );
     }
 }
 
@@ -115,14 +113,17 @@ function rfi_check_featured_image_size($post){
     }
 }
 
-function rfi_check_size_is_set(){
+function rfi_get_warning_message(){
     $minimum_size = get_option('rfi_minimum_size');
-    if($minimum_size['width'] == 0 && $minimum_size['height'] == 0){
-        return "You cannot publish without a featured image.";
+    // Legacy case
+    if ( $minimum_size['width'] == 0 && $minimum_size['height'] == 0 ) {
+        return __( 'You cannot publish without a featured image.', 'require-featured-image' );
     }
-    else{
-        return "You cannot publish without a featured image which is at least ". $minimum_size['width'] ."x".$minimum_size['height']." pixels.";
-    }
+    return sprintf(
+        __( 'You cannot publish without a featured image that is at least %s x %s pixels.', 'require-featured-image' ),
+        $minimum_size['width'],
+        $minimum_size['height']
+    );
 }
 
 function rfi_should_let_post_publish( $post ) {

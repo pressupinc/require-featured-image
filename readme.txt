@@ -4,7 +4,7 @@ Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
 Tested up to: 4.4.1
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -58,7 +58,7 @@ Yep, just for different "custom post types." In your left sidebar under Settings
 
 = Support for other languages? =
 
-Yes. We're currently (end 2015/early 2016) hoping that these can start being done on [traslate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/require-featured-image), so if you'd like to contribute one and are familiar with the process, go ahead and do it there.
+Yes. We're currently (early 2016) hoping that these can start being done on [traslate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/require-featured-image), so if you'd like to contribute one and are familiar with the process, go ahead and do it there.
 
 As the dust is still settling on that process, we will continue supporting other languages via contributions of translations which will be rolled into the next point release of the plugin, as we've done historically.
 
@@ -69,6 +69,10 @@ As the dust is still settling on that process, we will continue supporting other
 2. The settings page, which lets you specify which post types the plugin should operate on.
 
 == CHANGELOG ==
+
+= 1.2.1 (2016.02.08) =
+* Smattering of small changes to make code more readable and standardized in formatting.
+* Addressed and issue where a translation function was being used in the wrong place at the wrong time.
 
 = 1.2.0 (2016.02.01) =
 * Adding the ability to declare, check for, and enforce a minimum featured image size. Big props to [@cjk508](https://github.com/cjk508) for making that happen.

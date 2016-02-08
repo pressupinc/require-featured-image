@@ -8,6 +8,18 @@ jQuery(document).ready(function($) {
 		return $('#postimagediv').find('img').length === 0;
 	}
 
+	function imageIsTooSmall() {
+		var $img = $('#postimagediv').find('img');
+		var regex = /-\d+[Xx]\d+\./g;
+		var input = $img[0].src;
+		var pathToImage = input.replace(regex, ".");
+
+		var featuredImage = new Image();
+		featuredImage.src = pathToImage;
+
+		return featuredImage.width < passedFromServer.width || featuredImage.height < passedFromServer.height;
+	}
+
 	function publishButtonIsPublishText() {
 		return $('#publish').attr('name') === 'publish';
 	}
@@ -33,18 +45,6 @@ jQuery(document).ready(function($) {
 		if ($('body').find("#nofeature-message").length === 0) {
 			$('#post').before('<div id="nofeature-message"></div>');
 	    }
-	}
-
-	function imageIsTooSmall(){
-		var $img = $('#postimagediv').find('img');
-		var regex = /-\d+[Xx]\d+\./g;
-		var input = $img[0].src;
-		var pathToImage = input.replace(regex, ".");
-
-		var featuredImage = new Image();
-		featuredImage.src = pathToImage;
-
-		return featuredImage.width < passedFromServer.width || featuredImage.height < passedFromServer.height;
 	}
 
     function detectWarnFeaturedImage() {

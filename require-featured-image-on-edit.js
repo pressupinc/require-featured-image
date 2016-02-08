@@ -12,10 +12,15 @@ jQuery(document).ready(function($) {
 		return $('#publish').attr('name') === 'publish';
 	}
 
-	function disablePublishAndWarn() {
+	function disablePublishAndWarn(reason) {
+		if (reason == 'none') {
+			var message = passedFromServer.jsWarningHtml;
+		} else {
+			var message = passedFromServer.jsSmallHtml;
+		}
 		createMessageAreaIfNeeded();
 		$('#nofeature-message').addClass("error")
-			.html('<p>'+passedFromServer.jsWarningHtml+'</p>');
+			.html('<p>'+message+'</p>');
 		$('#publish').attr('disabled','disabled');
 	}
 
@@ -30,14 +35,7 @@ jQuery(document).ready(function($) {
 	    }
 	}
 
-	function disableTooSmallAndWarn() {
-			createMessageAreaIfNeeded();
-			$('#nofeature-message').addClass("error")
-				.html('<p>'+passedFromServer.jsSmallHtml+'</p>');
-			$('#publish').attr('disabled','disabled');
-	}
-
-	function checkImageSizeThenWarnOrEnable(){
+	function imageIsTooSmall(){
 		var $img = $('#postimagediv').find('img');
 		var regex = /-\d+[Xx]\d+\./g;
 		var input = $img[0].src;
@@ -46,26 +44,20 @@ jQuery(document).ready(function($) {
 		var featuredImage = new Image();
 		featuredImage.src = pathToImage;
 
-		featuredImage.onload = function() {
-			var imageTooSmall = (featuredImage.width < passedFromServer.width) || (featuredImage.height < passedFromServer.height);
-		    if (imageTooSmall && publishButtonIsPublishText() ){
-		    	return disableTooSmallAndWarn();
-		    } else {
-		    	return clearWarningAndEnablePublish();
-		    }
-		};
+		return featuredImage.width < passedFromServer.width || featuredImage.height < passedFromServer.height;
 	}
 
     function detectWarnFeaturedImage() {
 		if (postTypeSupportsFeaturedImage()) {
 			if (lacksFeaturedImage() && publishButtonIsPublishText()) {
-				disablePublishAndWarn();
+				disablePublishAndWarn( 'none' );
+			} else if (imageIsTooSmall() && publishButtonIsPublishText()) {
+				disablePublishAndWarn( 'too-small' );
 			} else {
-				checkImageSizeThenWarnOrEnable();
+				clearWarningAndEnablePublish();
 			}
 		}
 	}
-
 
 	detectWarnFeaturedImage();
 	setInterval(detectWarnFeaturedImage, 3000);

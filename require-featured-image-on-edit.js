@@ -38,7 +38,7 @@ jQuery(document).ready(function($) {
 	}
 
 	function checkImageSizeThenWarnOrEnable(){
-		$img = $('#postimagediv').find('img');
+		var $img = $('#postimagediv').find('img');
 		var regex = /-\d+[Xx]\d+\./g;
 		var input = $img[0].src;
 		var pathToImage = input.replace(regex, ".");

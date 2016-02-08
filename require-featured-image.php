@@ -36,15 +36,15 @@ function rfi_textdomain_init() {
 add_action( 'admin_enqueue_scripts', 'rfi_enqueue_edit_screen_js' );
 function rfi_enqueue_edit_screen_js( $hook ) {
     global $post;
-	if ( $hook !== 'post.php' && $hook !== 'post-new.php' )
+	if ( $hook !== 'post.php' && $hook !== 'post-new.php' ) {
         return;
+    }
 
     if ( in_array( $post->post_type, rfi_return_post_types() ) ) {
-        $minimum_size = get_option('rfi_minimum_size');
-
         wp_register_script( 'rfi-admin-js', plugins_url( '/require-featured-image-on-edit.js', __FILE__ ), array( 'jquery' ) );
         wp_enqueue_script( 'rfi-admin-js' );
 
+        $minimum_size = get_option( 'rfi_minimum_size' );
         wp_localize_script(
             'rfi-admin-js',
             'passedFromServer',
@@ -71,8 +71,7 @@ function rfi_return_post_types() {
     if ( $option === 'default' ) {
         $option = array( 'post' );
         add_option( 'rfi_post_types', $option );
-    }
-    elseif ( $option === '' ) {
+    } elseif ( $option === '' ) {
         // For people who want the plugin on, but doing nothing
         $option = array();
     }
@@ -91,25 +90,25 @@ function rfi_enforcement_start_time() {
     return apply_filters( 'rfi_enforcement_start', (int)$option );
 }
 
-function rfi_posts_featured_image_is_large_enough($post){
-    if ( has_post_thumbnail( $post->ID ) ){
+function rfi_posts_featured_image_is_large_enough($post) {
+    if ( has_post_thumbnail( $post->ID ) ) {
         $image_id = get_post_thumbnail_id( $post->ID );
         if ( $image_id === null ) {
             return false;
         }
-        $image_meta = wp_get_attachment_image_src($image_id, 'full');
+        $image_meta = wp_get_attachment_image_src( $image_id, 'full' );
         $width = $image_meta[1];
         $height = $image_meta[2];
-        $minimum_size = get_option('rfi_minimum_size');
+        $minimum_size = get_option( 'rfi_minimum_size' );
 
-        if ($width >= $minimum_size['width'] && $height >=  $minimum_size['height']){
+        if ( $width >= $minimum_size['width'] && $height >=  $minimum_size['height'] ){
             return true;
         }
         return false;
     }
 }
 
-function rfi_get_warning_message(){
+function rfi_get_warning_message() {
     $minimum_size = get_option('rfi_minimum_size');
     // Legacy case
     if ( $minimum_size['width'] == 0 && $minimum_size['height'] == 0 ) {
@@ -126,7 +125,7 @@ function rfi_should_let_post_publish( $post ) {
     $has_featured_image = has_post_thumbnail( $post->ID );
     $is_watched_post_type = in_array( $post->post_type, rfi_return_post_types() );
     $is_after_enforcement_time = strtotime( $post->post_date ) > rfi_enforcement_start_time();
-    $image_is_large_enough = rfi_posts_featured_image_is_large_enough($post);
+    $image_is_large_enough = rfi_posts_featured_image_is_large_enough( $post );
 
     if ( $is_after_enforcement_time && $is_watched_post_type ) {
         return $has_featured_image && $image_is_large_enough;

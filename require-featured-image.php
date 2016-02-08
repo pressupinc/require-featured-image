@@ -91,25 +91,21 @@ function rfi_enforcement_start_time() {
     return apply_filters( 'rfi_enforcement_start', (int)$option );
 }
 
-function rfi_check_featured_image_size($post){
-    if(has_post_thumbnail($post->ID)){
-        $image_id = get_post_thumbnail_id($post->ID);
-        if($image_id != null){
-            $image_meta = wp_get_attachment_image_src($image_id, 'full');
-            $width = $image_meta[1];
-            $height = $image_meta[2];
-            $minimum_size = get_option('rfi_minimum_size');
-
-            if ($width < $minimum_size['width'] ){
-                return false;
-            }
-            elseif ($height <  $minimum_size['height']){
-                return false;
-            }
-            else{
-                return true;
-            }
+function rfi_posts_featured_image_is_large_enough($post){
+    if ( has_post_thumbnail( $post->ID ) ){
+        $image_id = get_post_thumbnail_id( $post->ID );
+        if ( $image_id === null ) {
+            return false;
         }
+        $image_meta = wp_get_attachment_image_src($image_id, 'full');
+        $width = $image_meta[1];
+        $height = $image_meta[2];
+        $minimum_size = get_option('rfi_minimum_size');
+
+        if ($width >= $minimum_size['width'] && $height >=  $minimum_size['height']){
+            return true;
+        }
+        return false;
     }
 }
 
@@ -130,10 +126,10 @@ function rfi_should_let_post_publish( $post ) {
     $has_featured_image = has_post_thumbnail( $post->ID );
     $is_watched_post_type = in_array( $post->post_type, rfi_return_post_types() );
     $is_after_enforcement_time = strtotime( $post->post_date ) > rfi_enforcement_start_time();
-    $image_size_check = rfi_check_featured_image_size($post);
+    $image_is_large_enough = rfi_posts_featured_image_is_large_enough($post);
 
     if ( $is_after_enforcement_time && $is_watched_post_type ) {
-        return $has_featured_image && $image_size_check;
+        return $has_featured_image && $image_is_large_enough;
     }
     return true;
 }

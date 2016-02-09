@@ -1,27 +1,30 @@
 jQuery(document).ready(function($) {
 
+	var message = passedFromServer.jsWarningHtml;
+
 	function postTypeSupportsFeaturedImage() {
 		return $.find('#postimagediv').length !== 0;
 	}
 
-	function lacksFeaturedImage() {
-		return $('#postimagediv').find('img').length === 0;
-	}
-
-	function imageIsTooSmall() {
+	function shouldBlockPublishUpdateMessage() {
 		var $img = $('#postimagediv').find('img');
-		var regex = /-\d+[Xx]\d+\./g;
-		console.log($img.length);
 		if ($img.length === 0) {
+			message = passedFromServer.jsWarningHtml;
 			return true;
 		}
-		console.log('git heer');
-		var input = $img[0].src;
-		var pathToImage = input.replace(regex, ".");
+		if (passedImageIsTooSmall($img)) {
+			message = passedFromServer.jsSmallHtml;
+			return true;
+		}
+		return false;
+	}
 
+	function passedImageIsTooSmall($img) {
+		var input = $img[0].src;
+		var pathToImage = input.replace(/-\d+[Xx]\d+\./g, ".");
+		console.log(pathToImage);
 		var featuredImage = new Image();
 		featuredImage.src = pathToImage;
-
 		return featuredImage.width < passedFromServer.width || featuredImage.height < passedFromServer.height;
 	}
 
@@ -29,12 +32,7 @@ jQuery(document).ready(function($) {
 		return $('#publish').attr('name') === 'publish';
 	}
 
-	function disablePublishAndWarn(reason) {
-		if (reason == 'none') {
-			var message = passedFromServer.jsWarningHtml;
-		} else {
-			var message = passedFromServer.jsSmallHtml;
-		}
+	function disablePublishAndWarn() {
 		createMessageAreaIfNeeded();
 		$('#nofeature-message').addClass("error")
 			.html('<p>'+message+'</p>');
@@ -54,10 +52,8 @@ jQuery(document).ready(function($) {
 
     function detectWarnFeaturedImage() {
 		if (postTypeSupportsFeaturedImage()) {
-			if (lacksFeaturedImage() && publishButtonIsPublishText()) {
-				disablePublishAndWarn( 'none' );
-			} else if (imageIsTooSmall() && publishButtonIsPublishText()) {
-				disablePublishAndWarn( 'too-small' );
+			if (shouldBlockPublishUpdateMessage() && publishButtonIsPublishText()) {
+				disablePublishAndWarn();
 			} else {
 				clearWarningAndEnablePublish();
 			}

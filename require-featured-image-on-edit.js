@@ -11,6 +11,11 @@ jQuery(document).ready(function($) {
 	function imageIsTooSmall() {
 		var $img = $('#postimagediv').find('img');
 		var regex = /-\d+[Xx]\d+\./g;
+		console.log($img.length);
+		if ($img.length === 0) {
+			return true;
+		}
+		console.log('git heer');
 		var input = $img[0].src;
 		var pathToImage = input.replace(regex, ".");
 

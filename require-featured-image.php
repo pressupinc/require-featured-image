@@ -40,9 +40,7 @@ function rfi_enqueue_edit_screen_js( $hook ) {
         return;
     }
 
-    if ( in_array( $post->post_type, rfi_return_post_types() )
-        && strtotime($post->post_date) > rfi_enforcement_start_time() ) {
-
+    if ( rfi_is_supported_post_type( $post ) && rfi_is_in_enforcement_window( $post ) ) {
         wp_register_script( 'rfi-admin-js', plugins_url( '/require-featured-image-on-edit.js', __FILE__ ), array( 'jquery' ) );
         wp_enqueue_script( 'rfi-admin-js' );
 
@@ -68,6 +66,21 @@ function rfi_enqueue_edit_screen_js( $hook ) {
  * These are helpers that aren't ever registered with events
  */
 
+function rfi_should_let_post_publish( $post ) {
+    $is_watched_post_type = rfi_is_supported_post_type( $post );
+    $is_after_enforcement_time = rfi_is_in_enforcement_window( $post );
+    $image_is_large_enough = rfi_post_has_large_enough_image_attached( $post );
+
+    if ( $is_after_enforcement_time && $is_watched_post_type ) {
+        return $image_is_large_enough;
+    }
+    return true;
+}
+
+function rfi_is_supported_post_type( $post ) {
+    return in_array( $post->post_type, rfi_return_post_types() );
+}
+
 function rfi_return_post_types() {
     $option = get_option( 'rfi_post_types', 'default' );
     if ( $option === 'default' ) {
@@ -78,6 +91,10 @@ function rfi_return_post_types() {
         $option = array();
     }
     return apply_filters( 'rfi_post_types', $option );
+}
+
+function rfi_is_in_enforcement_window( $post ) {
+    return strtotime($post->post_date) > rfi_enforcement_start_time();
 }
 
 function rfi_enforcement_start_time() {
@@ -92,7 +109,7 @@ function rfi_enforcement_start_time() {
     return apply_filters( 'rfi_enforcement_start', (int)$option );
 }
 
-function rfi_posts_featured_image_is_large_enough($post) {
+function rfi_post_has_large_enough_image_attached( $post ) {
     if ( has_post_thumbnail( $post->ID ) ) {
         $image_id = get_post_thumbnail_id( $post->ID );
         if ( $image_id === null ) {
@@ -121,16 +138,4 @@ function rfi_get_warning_message() {
         $minimum_size['width'],
         $minimum_size['height']
     );
-}
-
-function rfi_should_let_post_publish( $post ) {
-    $has_featured_image = has_post_thumbnail( $post->ID );
-    $is_watched_post_type = in_array( $post->post_type, rfi_return_post_types() );
-    $is_after_enforcement_time = strtotime( $post->post_date ) > rfi_enforcement_start_time();
-    $image_is_large_enough = rfi_posts_featured_image_is_large_enough( $post );
-
-    if ( $is_after_enforcement_time && $is_watched_post_type ) {
-        return $has_featured_image && $image_is_large_enough;
-    }
-    return true;
 }

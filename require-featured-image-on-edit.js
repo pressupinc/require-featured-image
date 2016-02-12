@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 
-	function warningMessageOrEmpty() {
+	function checkImageReturnWarningMessageOrEmpty() {
 		var $img = $('#postimagediv').find('img');
 		if ($img.length === 0) {
 			return passedFromServer.jsWarningHtml;
@@ -38,8 +38,8 @@ jQuery(document).ready(function($) {
 	}
 
     function detectWarnFeaturedImage() {
-		if (warningMessageOrEmpty()) {
-			disablePublishAndWarn(warningMessageOrEmpty());
+		if (checkImageReturnWarningMessageOrEmpty()) {
+			disablePublishAndWarn(checkImageReturnWarningMessageOrEmpty());
 		} else {
 			clearWarningAndEnablePublish();
 		}

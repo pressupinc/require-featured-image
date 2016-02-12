@@ -69,10 +69,10 @@ function rfi_textdomain_init() {
 function rfi_should_let_post_publish( $post ) {
     $is_watched_post_type = rfi_is_supported_post_type( $post );
     $is_after_enforcement_time = rfi_is_in_enforcement_window( $post );
-    $image_is_large_enough = rfi_post_has_large_enough_image_attached( $post );
+    $large_enough_image_attached = rfi_post_has_large_enough_image_attached( $post );
 
     if ( $is_after_enforcement_time && $is_watched_post_type ) {
-        return $image_is_large_enough;
+        return $large_enough_image_attached;
     }
     return true;
 }

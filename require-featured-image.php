@@ -18,25 +18,10 @@ function rfi_guard( $new_status, $old_status, $post ) {
     }
 }
 
-register_activation_hook( __FILE__, 'rfi_set_default_on_activation' );
-function rfi_set_default_on_activation() {
-    add_option( 'rfi_post_types', array('post') );
-    add_option( 'rfi_enforcement_start', time() );
-}
-
-add_action( 'plugins_loaded', 'rfi_textdomain_init' );
-function rfi_textdomain_init() {
-    load_plugin_textdomain(
-        'require-featured-image',
-        false,
-        dirname( plugin_basename( __FILE__ ) ).'/lang'
-    );
-}
-
 add_action( 'admin_enqueue_scripts', 'rfi_enqueue_edit_screen_js' );
 function rfi_enqueue_edit_screen_js( $hook ) {
     global $post;
-	if ( $hook !== 'post.php' && $hook !== 'post-new.php' ) {
+    if ( $hook !== 'post.php' && $hook !== 'post-new.php' ) {
         return;
     }
 
@@ -50,16 +35,31 @@ function rfi_enqueue_edit_screen_js( $hook ) {
             'passedFromServer',
             array(
                 'jsWarningHtml' => __( '<strong>This entry has no featured image.</strong> Please set one. You need to set a featured image before publishing.', 'require-featured-image' ),
-                'jsSmallHtml' => sprintf( 
-                    __( '<strong>This entry has a featured image that is too small.</strong> Please use an image that is at least %s x %s pixels.', 'require-featured-image' ), 
-                    $minimum_size['width'], 
-                    $minimum_size['height'] 
+                'jsSmallHtml' => sprintf(
+                    __( '<strong>This entry has a featured image that is too small.</strong> Please use an image that is at least %s x %s pixels.', 'require-featured-image' ),
+                    $minimum_size['width'],
+                    $minimum_size['height']
                 ),
                 'width' => $minimum_size['width'],
                 'height' => $minimum_size['height'],
             )
         );
     }
+}
+
+register_activation_hook( __FILE__, 'rfi_set_default_on_activation' );
+function rfi_set_default_on_activation() {
+    add_option( 'rfi_post_types', array('post') );
+    add_option( 'rfi_enforcement_start', time() );
+}
+
+add_action( 'plugins_loaded', 'rfi_textdomain_init' );
+function rfi_textdomain_init() {
+    load_plugin_textdomain(
+        'require-featured-image',
+        false,
+        dirname( plugin_basename( __FILE__ ) ).'/lang'
+    );
 }
 
 /**

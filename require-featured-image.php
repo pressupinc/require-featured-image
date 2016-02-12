@@ -40,7 +40,9 @@ function rfi_enqueue_edit_screen_js( $hook ) {
         return;
     }
 
-    if ( in_array( $post->post_type, rfi_return_post_types() ) ) {
+    if ( in_array( $post->post_type, rfi_return_post_types() )
+        && strtotime($post->post_date) > rfi_enforcement_start_time() ) {
+
         wp_register_script( 'rfi-admin-js', plugins_url( '/require-featured-image-on-edit.js', __FILE__ ), array( 'jquery' ) );
         wp_enqueue_script( 'rfi-admin-js' );
 

@@ -1,9 +1,5 @@
 jQuery(document).ready(function($) {
 
-	function postTypeSupportsFeaturedImage() {
-		return $.find('#postimagediv').length !== 0;
-	}
-
 	function warningMessageOrEmpty() {
 		var $img = $('#postimagediv').find('img');
 		if ($img.length === 0) {
@@ -42,9 +38,6 @@ jQuery(document).ready(function($) {
 	}
 
     function detectWarnFeaturedImage() {
-		if (!postTypeSupportsFeaturedImage()) {
-			return;
-		}
 		if (warningMessageOrEmpty()) {
 			disablePublishAndWarn(warningMessageOrEmpty());
 		} else {

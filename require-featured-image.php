@@ -13,7 +13,7 @@ require_once('admin-options.php');
 
 add_action( 'transition_post_status', 'rfi_guard', 10, 3 );
 function rfi_guard( $new_status, $old_status, $post ) {
-    if ( $new_status === 'publish' && !rfi_should_let_post_publish( $post ) ) {
+    if ( $new_status === 'publish' && rfi_should_stop_post_publishing( $post ) ) {
         wp_die( rfi_get_warning_message() );
     }
 }
@@ -66,15 +66,15 @@ function rfi_textdomain_init() {
  * These are helpers that aren't ever registered with events
  */
 
-function rfi_should_let_post_publish( $post ) {
+function rfi_should_stop_post_publishing( $post ) {
     $is_watched_post_type = rfi_is_supported_post_type( $post );
     $is_after_enforcement_time = rfi_is_in_enforcement_window( $post );
     $large_enough_image_attached = rfi_post_has_large_enough_image_attached( $post );
 
     if ( $is_after_enforcement_time && $is_watched_post_type ) {
-        return $large_enough_image_attached;
+        return !$large_enough_image_attached;
     }
-    return true;
+    return false;
 }
 
 function rfi_is_supported_post_type( $post ) {
@@ -110,21 +110,19 @@ function rfi_enforcement_start_time() {
 }
 
 function rfi_post_has_large_enough_image_attached( $post ) {
-    if ( has_post_thumbnail( $post->ID ) ) {
-        $image_id = get_post_thumbnail_id( $post->ID );
-        if ( $image_id === null ) {
-            return false;
-        }
-        $image_meta = wp_get_attachment_image_src( $image_id, 'full' );
-        $width = $image_meta[1];
-        $height = $image_meta[2];
-        $minimum_size = get_option( 'rfi_minimum_size' );
-
-        if ( $width >= $minimum_size['width'] && $height >=  $minimum_size['height'] ){
-            return true;
-        }
+    $image_id = get_post_thumbnail_id( $post->ID );
+    if ( $image_id === null ) {
         return false;
     }
+    $image_meta = wp_get_attachment_image_src( $image_id, 'full' );
+    $width = $image_meta[1];
+    $height = $image_meta[2];
+    $minimum_size = get_option( 'rfi_minimum_size' );
+
+    if ( $width >= $minimum_size['width'] && $height >=  $minimum_size['height'] ){
+        return true;
+    }
+    return false;
 }
 
 function rfi_get_warning_message() {

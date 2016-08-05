@@ -1,0 +1,30 @@
+
+{
+  "name": "pressupinc/require-featured-image",
+  "type": "wordpress-plugin",
+  "license": "MIT",
+  "description": "Requires content you specify to have a featured image set before they can be published.",
+  "homepage": "https://github.com/pressupinc/require-featured-image",
+  "authors": [
+    {
+      "name": "Press Up",
+      "email": "contact@pressupinc.com",
+      "homepage": "https://github.com/pressupinc"
+    },{
+      "name": "David Hayes",
+      "email": "email@davidbhayes.com",
+      "homepage": "https://github.com/davidbhayes"
+    }
+  ],
+  "keywords": [
+    "wordpress",
+    "featured-image"
+  ],
+  "support": {
+    "issues": "https://wordpress.org/support/plugin/require-featured-image"
+  },
+  "require": {
+    "php": ">=5.2.4",
+    "composer/installers": "~1.0"
+  }
+}

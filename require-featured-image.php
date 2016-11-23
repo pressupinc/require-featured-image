@@ -50,7 +50,9 @@ function rfi_enqueue_edit_screen_js( $hook ) {
 register_activation_hook( __FILE__, 'rfi_set_default_on_activation' );
 function rfi_set_default_on_activation() {
     add_option( 'rfi_post_types', array('post') );
-    add_option( 'rfi_enforcement_start', time() );
+    // We added the 86400 (one day) below, because without it 
+    //      first run behavior was confusing
+    add_option( 'rfi_enforcement_start', time() - 86400 );
 }
 
 add_action( 'plugins_loaded', 'rfi_textdomain_init' );

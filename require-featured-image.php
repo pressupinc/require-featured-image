@@ -139,3 +139,11 @@ function rfi_get_warning_message() {
         $minimum_size['height']
     );
 }
+
+add_action( 'admin_post_thumbnail_html', 'rfi_admin_post_thumbnail_html', 10, 3 );
+function rfi_admin_post_thumbnail_html($html, $post_id, $thumbnail_id) {
+	if ($thumbnail_id && $image_meta = wp_get_attachment_image_src( $thumbnail_id, 'full' )) {
+		$html = preg_replace('/<img /', '<img data-rfiimgsrc="'.esc_attr($image_meta[0]).'" ', $html);
+	}
+	return $html;
+}

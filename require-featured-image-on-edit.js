@@ -12,8 +12,11 @@ jQuery(document).ready(function($) {
 	}
 
 	function passedImageIsTooSmall($img) {
-		var input = $img[0].src;
-		var pathToImage = input.replace(/-\d+[Xx]\d+\./g, ".");
+		var pathToImage = $img.data('rfiimgsrc');
+		if (!pathToImage) {
+			var input = $img[0].src;
+			pathToImage = input.replace(/-\d+[Xx]\d+\./g, ".");
+		}
 		var featuredImage = new Image();
 		featuredImage.src = pathToImage;
 		return featuredImage.width < passedFromServer.width || featuredImage.height < passedFromServer.height;
@@ -37,7 +40,7 @@ jQuery(document).ready(function($) {
 	    }
 	}
 
-    function detectWarnFeaturedImage() {
+	function detectWarnFeaturedImage() {
 		if (checkImageReturnWarningMessageOrEmpty()) {
 			disablePublishAndWarn(checkImageReturnWarningMessageOrEmpty());
 		} else {

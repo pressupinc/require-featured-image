@@ -12,38 +12,33 @@ Text Domain: require-featured-image
 require_once('admin-options.php');
 
 add_action( 'transition_post_status', 'rfi_guard', 10, 3 );
+add_action('admin_notices', function(){
+    global $pagenow, $post;
+
+    if($pagenow =='post.php' && rfi_should_stop_post_publishing($post)){
+        $minimum_size = get_option( 'rfi_minimum_size' );
+        $width = $minimum_size['width'];
+        $height = $minimum_size['height'];
+
+        echo "<div class='message notice notice-error'><p> ";
+        if(get_post_thumbnail_id( $post->ID )){
+            echo "<strong>This entry has a featured image that is too small.</strong> Please use an image that is at least $width x $height pixels.";
+        }else{
+            echo "<strong>This entry has no featured image</strong> Please set one. You must set a featured image that is at least $width x $height pixels before publishing";
+        }
+        echo '</p></div>';
+
+    }
+
+});
+
+
+
 function rfi_guard( $new_status, $old_status, $post ) {
     if ( $new_status === 'publish' && rfi_should_stop_post_publishing( $post ) ) {
-        wp_die( rfi_get_warning_message() );
-    }
-}
+        $post->post_status = $old_status;
+        wp_update_post($post);
 
-add_action( 'admin_enqueue_scripts', 'rfi_enqueue_edit_screen_js' );
-function rfi_enqueue_edit_screen_js( $hook ) {
-    global $post;
-    if ( $hook !== 'post.php' && $hook !== 'post-new.php' ) {
-        return;
-    }
-
-    if ( rfi_is_supported_post_type( $post ) && rfi_is_in_enforcement_window( $post ) ) {
-        wp_register_script( 'rfi-admin-js', plugins_url( '/require-featured-image-on-edit.js', __FILE__ ), array( 'jquery' ) );
-        wp_enqueue_script( 'rfi-admin-js' );
-
-        $minimum_size = get_option( 'rfi_minimum_size' );
-        wp_localize_script(
-            'rfi-admin-js',
-            'passedFromServer',
-            array(
-                'jsWarningHtml' => __( '<strong>This entry has no featured image.</strong> Please set one. You need to set a featured image before publishing.', 'require-featured-image' ),
-                'jsSmallHtml' => sprintf(
-                    __( '<strong>This entry has a featured image that is too small.</strong> Please use an image that is at least %s x %s pixels.', 'require-featured-image' ),
-                    $minimum_size['width'],
-                    $minimum_size['height']
-                ),
-                'width' => $minimum_size['width'],
-                'height' => $minimum_size['height'],
-            )
-        );
     }
 }
 

@@ -15,6 +15,10 @@ add_action( 'transition_post_status', 'rfi_guard', 10, 3 );
 function rfi_guard( $new_status, $old_status, $post ) {
     if ( $new_status === 'publish' && rfi_should_stop_post_publishing( $post ) ) {
         // transition_post_status comes after the post has changed statuses, so we must roll back here
+        // because publish->publish->... is an infinite loop, move a published post without an image to draft
+        if ( $old_status == 'publish' ) {
+            $old_status = 'draft';
+        }
         $post->post_status = $old_status;
         wp_update_post( $post );
         wp_die( rfi_get_warning_message() );

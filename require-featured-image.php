@@ -14,6 +14,9 @@ require_once('admin-options.php');
 add_action( 'transition_post_status', 'rfi_guard', 10, 3 );
 function rfi_guard( $new_status, $old_status, $post ) {
     if ( $new_status === 'publish' && rfi_should_stop_post_publishing( $post ) ) {
+        // transition_post_status comes after the post has changed statuses, so we must roll back here
+        $post->post_status = $old_status;
+        wp_update_post( $post );
         wp_die( rfi_get_warning_message() );
     }
 }

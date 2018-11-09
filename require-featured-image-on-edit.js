@@ -1,7 +1,15 @@
 jQuery(document).ready(function($) {
 
+    function isGutenberg() {
+        return ($('.gutenberg').length > 0);
+    }
+
     function checkImageReturnWarningMessageOrEmpty() {
-        var $img = $('#postimagediv').find('img');
+        if (isGutenberg()) {
+            var $img = $('.editor-post-featured-image').find('img');
+        } else {
+            var $img = $('#postimagediv').find('img');
+        }
         if ($img.length === 0) {
             return passedFromServer.jsWarningHtml;
         }
@@ -16,8 +24,11 @@ jQuery(document).ready(function($) {
 
     function featuredImageIsTooSmall() {
         // A weird polling issue in Chrome made this necessary
-        var $img = $('#postimagediv').find('img');
-
+        if (isGutenberg()) {
+            var $img = $('.editor-post-featured-image').find('img');
+        } else {
+            var $img = $('#postimagediv').find('img');
+        }
         // pop one off, if needed
         if( isTooSmallTrials.length > 2 ) {
             isTooSmallTrials.shift();
@@ -44,17 +55,29 @@ jQuery(document).ready(function($) {
         createMessageAreaIfNeeded();
         $('#nofeature-message').addClass("error")
             .html('<p>'+message+'</p>');
-        $('#publish').attr('disabled','disabled');
+        if (isGutenberg()) {
+            $('.editor-post-publish-panel__toggle').attr('disabled', 'disabled');
+        } else {
+            $('#publish').attr('disabled','disabled');
+        }
     }
 
     function clearWarningAndEnablePublish() {
         $('#nofeature-message').remove();
-        $('#publish').removeAttr('disabled');
+        if (isGutenberg()) {
+            $('.editor-post-publish-panel__toggle').removeAttr('disabled');
+        } else {
+            $('#publish').removeAttr('disabled');
+        }
     }
 
     function createMessageAreaIfNeeded() {
         if ($('body').find("#nofeature-message").length === 0) {
-            $('#post').before('<div id="nofeature-message"></div>');
+            if (isGutenberg()) {
+                $('.components-notice-list').append('<div id="nofeature-message"></div>');
+            } else {
+                $('#post').before('<div id="nofeature-message"></div>');
+            }
         }
     }
 

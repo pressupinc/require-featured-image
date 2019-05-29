@@ -4,7 +4,7 @@ Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Tags: featured image, images, edit, post, admin, require featured image, image, media, thumbnail, thumbnails, post thumbnail, photo, pictures
 Requires at least: 3.5
 Tested up to: 4.9.8
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -69,6 +69,9 @@ As the dust is still settling on that process, we will continue supporting other
 2. The settings page, which lets you specify which post types the plugin should operate on.
 
 == CHANGELOG ==
+
+= 1.4.1 (2019.05.29) =
+* Fix to crude Gutenberg compatibility in JS
 
 = 1.4.0 (2018.11.09) =
 * Crude-and-quick Gutenberg compatibility

@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 
     function isGutenberg() {
-        return ($('.gutenberg').length > 0);
+        return ($('.block-editor-writing-flow').length > 0);
     }
 
     function checkImageReturnWarningMessageOrEmpty() {

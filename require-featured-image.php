@@ -4,7 +4,7 @@ Plugin Name: Require Featured Image
 Plugin URI: http://pressupinc.com/wordpress-plugins/require-featured-image/
 Description: Like it says on the tin: requires posts to have a featured image set before they'll be published.
 Author: Press Up
-Version: 1.4.1
+Version: 1.5.0
 Author URI: http://pressupinc.com
 Text Domain: require-featured-image
 */
@@ -13,6 +13,16 @@ require_once('admin-options.php');
 
 add_action( 'transition_post_status', 'rfi_guard', 10, 3 );
 function rfi_guard( $new_status, $old_status, $post ) {
+    if ( isset($_GET['_locale']) && $_GET['_locale'] == 'user' ) {
+        return;
+        /* EXPLANATION: The Block/Gutenberg editor works differently than classic,
+         *  especially when a user has a a new post they're seeking to see published
+         *  where the Featured Image wasn't already saved to a draft. Best I can tell
+         *  in that condition they'll always have this weird `_locale=user` set on the URL
+         *  so a quick-and-dirty hack on not enforcing on that post transition is going on
+         *  here. Should probably have more expert eyes find a better solution than this.
+         */
+    }
     if ( $new_status === 'publish' && rfi_should_stop_post_publishing( $post ) ) {
         // transition_post_status comes after the post has changed statuses, so we must roll back here
         // because publish->publish->... is an infinite loop, move a published post without an image to draft

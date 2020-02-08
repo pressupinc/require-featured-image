@@ -81,6 +81,15 @@ jQuery(document).ready(function($) {
 		var featuredImage = new Image();
 		featuredImage.src = pathToImage;
 
+		//Check to ensure that if only one of the parameters has been set then it doesn't auto-fail the image
+		if (passedFromServer.maxWidth === "0" && passedFromServer.maxHeight === "0") {
+			return false;
+		} else if (passedFromServer.maxWidth === "0") {
+			return featuredImage.height > passedFromServer.maxHeight;
+		} else if (passedFromServer.maxHeight === "0") {
+			return featuredImage.width > passedFromServer.maxWidth;
+		}
+
 		return featuredImage.width > passedFromServer.maxWidth || featuredImage.height > passedFromServer.maxHeight;
 	}
 
@@ -103,7 +112,7 @@ jQuery(document).ready(function($) {
         $('#nofeature-message').remove();
         if (isGutenberg()) {
 			if (isNewGutenbergArticle()) {
-				$('.editor-post-publish-panel__toggle').attr('disabled', 'disabled');
+				$('.editor-post-publish-panel__toggle').removeAttr('disabled');
 			} else {
 				$('.editor-post-publish-button').attr('aria-disabled', true);
 			};

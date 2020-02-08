@@ -50,7 +50,7 @@ function rfi_main_section_text_output() {
 }
 
 function rfi_size_text_output(){
-	_e('<p>The minimum and maximum acceptable size can be set for featured images. This size means that posts with images smaller than the specified dimensions cannot be published. By default the sizes are zero, so any image size will be accepted.</p>','require-featured-image');
+	_e('<p>The minimum and maximum acceptable size can be set for featured images. This size means that posts with images smaller and/or larger than the specified dimensions cannot be published. By default the sizes are zero, so any image size will be accepted.</p>','require-featured-image');
 }
 
 function rfi_return_post_types_which_support_featured_images() {

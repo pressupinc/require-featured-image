@@ -25,7 +25,9 @@ function rfi_admin_init(){
 	register_setting( $option_group, $option_name );
 
 	$minimum_size_option = 'rfi_minimum_size';
+	$maximum_size_option = 'rfi_maximum_size';
 	register_setting( $option_group, $minimum_size_option );
+	register_setting( $option_group, $maximum_size_option );
 
 	// Create section of Page
 	$settings_section = 'rfi_main';
@@ -39,7 +41,8 @@ function rfi_admin_init(){
 	$size_section = 'rfi_size';
 	add_settings_section($size_section, __('Image Size', 'require-featured-image'), 'rfi_size_text_output', $page);
 
-	add_settings_field($minimum_size_option, __('Minimum size of the featured images', 'require-featured-image'), 'rfi_size_option_renderer', $page, $size_section);
+	add_settings_field($minimum_size_option, __('Minimum size of the featured images', 'require-featured-image'), 'rfi_minimum_size_option_renderer', $page, $size_section);
+	add_settings_field($maximum_size_option, __('Maximum size of the featured images', 'require-featured-image'), 'rfi_maximum_size_option_renderer', $page, $size_section);
 }
 
 function rfi_main_section_text_output() {
@@ -47,7 +50,7 @@ function rfi_main_section_text_output() {
 }
 
 function rfi_size_text_output(){
-	_e('<p>The minimum acceptable size can be set for featured images. This size means that posts with images smaller than the specified dimensions cannot be published. By default the sizes are zero, so any image size will be accepted.</p>','require-featured-image');
+	_e('<p>The minimum and maximum acceptable size can be set for featured images. This size means that posts with images smaller than the specified dimensions cannot be published. By default the sizes are zero, so any image size will be accepted.</p>','require-featured-image');
 }
 
 function rfi_return_post_types_which_support_featured_images() {
@@ -60,15 +63,14 @@ function rfi_return_post_types_which_support_featured_images() {
 	return $return;
 }
 
-function rfi_return_min_dimensions() {
-	$minimum_size = get_option('rfi_minimum_size');
-	if (isset($minimum_size['width']) && $minimum_size['width'] == 0) {
-		$minimum_size['width'] = 0;
+function rfi_return_dimensions($dimensions) {
+	if (isset($dimensions['width']) && $dimensions['width'] == 0) {
+		$dimensions['width'] = 0;
 	}
-	if (isset($minimum_size['height']) && $minimum_size['height'] == 0) {
-		$minimum_size['height'] = 0;
+	if (isset($dimensions['height']) && $dimensions['height'] == 0) {
+		$dimensions['height'] = 0;
 	}
-	return $minimum_size;
+	return $dimensions;
 }
 
 function rfi_post_types_input_renderer() {
@@ -84,8 +86,16 @@ function rfi_post_types_input_renderer() {
 	}
 }
 
-function rfi_size_option_renderer(){
-	$dimensions = rfi_return_min_dimensions();
+function rfi_minimum_size_option_renderer(){
+	$saved_minimum_size = get_option('rfi_minimum_size');
+	$dimensions = rfi_return_dimensions($saved_minimum_size);
 	echo '<input type="number" name="rfi_minimum_size[width]", value="'.$dimensions["width"].'"> width (px) <br>';
 	echo '<input type="number" name="rfi_minimum_size[height]", value="'.$dimensions["height"].'"> height (px)<br>';
+}
+
+function rfi_maximum_size_option_renderer(){
+	$saved_maximum_size = get_option('rfi_maximum_size');
+	$dimensions = rfi_return_dimensions($saved_maximum_size);
+	echo '<input type="number" name="rfi_maximum_size[width]", value="'.$dimensions["width"].'"> width (px) <br>';
+	echo '<input type="number" name="rfi_maximum_size[height]", value="'.$dimensions["height"].'"> height (px)<br>';
 }

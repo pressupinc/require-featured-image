@@ -15,7 +15,9 @@ jQuery(document).ready(function($) {
         }
         if (featuredImageIsTooSmall()) {
             return passedFromServer.jsSmallHtml;
-        }
+        } else if (featuredImageIsTooLarge()) {
+			return passedFromServer.jsLargeHtml;
+		}
         return '';
     }
 
@@ -48,15 +50,50 @@ jQuery(document).ready(function($) {
         var featuredImage = new Image();
         featuredImage.src = pathToImage;
 
-        return featuredImage.width < passedFromServer.width || featuredImage.height < passedFromServer.height;
+        return featuredImage.width < passedFromServer.minWidth || featuredImage.height < passedFromServer.minHeight;
     }
+
+	// Contains three test "failures" at page load
+	var isTooLargeTrials = [ true, true, true ];
+	function featuredImageIsTooLarge() {
+		// A weird polling issue in Chrome made this necessary
+		if (isGutenberg()) {
+			var $img = $('.editor-post-featured-image').find('img');
+		} else {
+			var $img = $('#postimagediv').find('img');
+		}
+		// pop one off, if needed
+		if( isTooLargeTrials.length > 2 ) {
+			isTooLargeTrials.shift();
+		}
+		isTooLargeTrials.push( passedImageIsTooLarge($img) );
+
+		var imageIsTooLargeCount = isTooLargeTrials.reduce(function (a, b) {
+			return a + b;
+		}, 0);
+
+		return (imageIsTooLargeCount > 2);
+	}
+
+	function passedImageIsTooLarge($img) {
+		var input = $img[0].src;
+		var pathToImage = input.replace(/-\d+[Xx]\d+\./g, ".");
+		var featuredImage = new Image();
+		featuredImage.src = pathToImage;
+
+		return featuredImage.width > passedFromServer.maxWidth || featuredImage.height > passedFromServer.maxHeight;
+	}
 
     function disablePublishAndWarn(message) {
         createMessageAreaIfNeeded();
         $('#nofeature-message').addClass("error")
             .html('<p>'+message+'</p>');
         if (isGutenberg()) {
-            $('.editor-post-publish-panel__toggle').attr('disabled', 'disabled');
+			if (isNewGutenbergArticle()) {
+				$('.editor-post-publish-panel__toggle').attr('disabled', 'disabled');
+			} else {
+				$('.editor-post-publish-button').attr('aria-disabled', true);
+			}
         } else {
             $('#publish').attr('disabled','disabled');
         }
@@ -65,11 +102,19 @@ jQuery(document).ready(function($) {
     function clearWarningAndEnablePublish() {
         $('#nofeature-message').remove();
         if (isGutenberg()) {
-            $('.editor-post-publish-panel__toggle').removeAttr('disabled');
-        } else {
+			if (isNewGutenbergArticle()) {
+				$('.editor-post-publish-panel__toggle').attr('disabled', 'disabled');
+			} else {
+				$('.editor-post-publish-button').attr('aria-disabled', true);
+			};
+		} else {
             $('#publish').removeAttr('disabled');
         }
     }
+
+    function isNewGutenbergArticle(){
+		return $('.editor-post-publish-panel__toggle').length;
+	}
 
     function createMessageAreaIfNeeded() {
         if ($('body').find("#nofeature-message").length === 0) {

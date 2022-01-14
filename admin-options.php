@@ -86,6 +86,6 @@ function rfi_post_types_input_renderer() {
 
 function rfi_size_option_renderer(){
 	$dimensions = rfi_return_min_dimensions();
-	echo '<input type="number" name="rfi_minimum_size[width]", value="'.$dimensions["width"].'"> width (px) <br>';
-	echo '<input type="number" name="rfi_minimum_size[height]", value="'.$dimensions["height"].'"> height (px)<br>';
+	echo '<input type="number" name="rfi_minimum_size[width]" value="'.$dimensions["width"].'"> width (px) <br>';
+	echo '<input type="number" name="rfi_minimum_size[height]" value="'.$dimensions["height"].'"> height (px)<br>';
 }

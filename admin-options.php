@@ -61,13 +61,9 @@ function rfi_return_post_types_which_support_featured_images() {
 }
 
 function rfi_return_min_dimensions() {
-	$minimum_size = get_option('rfi_minimum_size');
-	if (isset($minimum_size['width']) && $minimum_size['width'] == 0) {
-		$minimum_size['width'] = 0;
-	}
-	if (isset($minimum_size['height']) && $minimum_size['height'] == 0) {
-		$minimum_size['height'] = 0;
-	}
+	$minimum_size = get_option( 'rfi_minimum_size', array() );
+	$minimum_size = wp_parse_args( $minimum_size, array( 'height' => 0, 'width' => 0 ) );
+
 	return $minimum_size;
 }
 
@@ -86,6 +82,6 @@ function rfi_post_types_input_renderer() {
 
 function rfi_size_option_renderer(){
 	$dimensions = rfi_return_min_dimensions();
-	echo '<input type="number" name="rfi_minimum_size[width]", value="'.$dimensions["width"].'"> width (px) <br>';
-	echo '<input type="number" name="rfi_minimum_size[height]", value="'.$dimensions["height"].'"> height (px)<br>';
+	echo '<input type="number" name="rfi_minimum_size[width]" value="'.$dimensions["width"].'"> width (px) <br>';
+	echo '<input type="number" name="rfi_minimum_size[height]" value="'.$dimensions["height"].'"> height (px)<br>';
 }

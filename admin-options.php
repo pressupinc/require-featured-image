@@ -62,7 +62,7 @@ function rfi_return_post_types_which_support_featured_images() {
 
 function rfi_return_min_dimensions() {
 	$minimum_size = get_option( 'rfi_minimum_size', array() );
-	$minimum_size = wp_parse_args( array( 'height' => 0, 'width' => 0 ), $minimum_size );
+	$minimum_size = wp_parse_args( $minimum_size, array( 'height' => 0, 'width' => 0 ) );
 
 	return $minimum_size;
 }
